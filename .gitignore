@@ -1,4 +1,6 @@
 /target/
+/filesystem/
+/database/
 .idea/
 .vscode/
 .settings
