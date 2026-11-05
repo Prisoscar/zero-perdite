@@ -1,0 +1,249 @@
+#notes-main-div{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#note-preview-viewer vaadin-text-area > textarea{
+  height: 100% !important;
+}
+
+#note-preview-viewer{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+
+#note-preview-media-main-container{
+  background: var(--lumo-base-color);
+  height: 100%;
+  width: 100%;
+  min-width: 270px;
+}
+
+.note-desktop-button {
+  margin: 0px -7px;
+}
+
+.note-action-buttons-layout{
+  width: 15%;
+}
+
+.note-card-title {
+  padding-left: 15px;
+  width: 85%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.note-card-title-preview {
+  padding-left: 15px;
+  margin-left: 20px;
+  width: 85%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.notes-div {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(0, min(400px, 40%)));
+  justify-content: space-evenly;
+  gap: 16px;
+  padding: 25px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.notes-header-layout,
+.note-header-layout {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notes-header-layout{
+  width: 80%;
+  margin: 20px auto;
+}
+
+.note-header-layout{
+  width: 100%;
+  margin: 0 0 0 -20px;
+}
+
+.note-card-layout {
+  padding: 15px;
+  margin: 0px;
+  /*width: 350px;*/
+  height: 470px;
+  display: flex;
+  align-items: center;
+}
+
+.note-card-paragraph{
+  width: 100%;
+  height: 100%;
+  white-space: pre-line;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(255, 255, 255, .2);
+  padding: 10px;
+  margin: 10px auto 0 auto;
+  width: 100%;
+  transition: box-shadow 0.3s;
+  background: #181818;
+}
+
+.note-card-paragraph:hover {
+  box-shadow: 0 1px 3px var(--lumo-primary-text-color);
+  cursor: pointer;
+}
+
+#note-mobile-actions-button {
+  display: none;
+}
+
+.notes-not-scrollable{
+  display: none !important;
+}
+
+/* mobile view */
+@media (max-width: 800px) {
+
+  #note-mobile-actions-button {
+    display: block;
+  }
+
+  .note-action-buttons-layout{
+    width: 0;
+  }
+
+  .note-card-title{
+    width: 100%;
+  }
+
+  .note-desktop-button{
+    display: none;
+  }
+
+  #notes-main-div{
+    font-size: 12px;
+  }
+
+  #notes-main-div h3{
+    font-size: 14px;
+  }
+
+  .note-sort-select{
+    font-size: 22px;
+  }
+
+  .note-sort-select > vaadin-select-value-button > vaadin-select-item{
+    font-size: 18px;
+  }
+
+  #note-header-sort-direction-button{
+    margin-top: 5px;
+  }
+
+  .notes-header-layout{
+    width: 125%;
+    transform: scale(0.8);
+    transform-origin: center left;
+    justify-content: space-evenly;
+  }
+
+  .note-card-paragraph:hover {
+    box-shadow: unset;
+    cursor: default;
+  }
+
+  .notes-div {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(0, min(200px, 40%)));
+    justify-content: space-evenly;
+    gap: 16px;
+    padding: 25px;
+    margin-left: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .note-card-layout {
+    padding: 15px;
+    margin: 0px;
+    /*width: 175px;*/
+    height: 350px;
+    display: flex;
+    align-items: center;
+  }
+
+  #note-preview-viewer vaadin-text-area > textarea{
+    font-size: 14px;
+  }
+
+  #note-preview-viewer h3{
+    font-size: 16px;
+  }
+
+}
+
+@media (max-width: 360px) {
+
+  /*#note-preview-viewer vaadin-text-area > textarea{
+    font-size: 12px;
+  }
+
+  #note-preview-viewer h3{
+    font-size: 14px;
+  }
+
+  #notes-main-div{
+    font-size: 12px;
+  }
+
+  #notes-main-div h3{
+    font-size: 14px;
+  }*/
+
+
+  #note-header-sort-direction-button{
+    margin-top: 8px;
+  }
+
+  #add-note-header-button,
+  #note-header-sort-direction-button{
+    transform: scale(1.2);
+  }
+
+  #add-note-header-button{
+    font-size: 18px;
+  }
+
+  .note-sort-select > vaadin-select-value-button > vaadin-select-item{
+      font-size: 20px;
+    }
+
+  .notes-header-layout{
+    width: 160%;
+    transform: scale(0.6);
+  }
+
+  .notes-div {
+    grid-template-columns: repeat(auto-fill, minmax(40vw, 40%));
+    padding: 0;
+    margin: 0;
+  }
+
+  .note-card-layout {
+    /*width: 105px;*/
+    height: 350px;
+  }
+
+}

@@ -1,0 +1,175 @@
+#preview-viewer{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+#preview-media-main-container{
+  background: var(--lumo-base-color);
+  height: 100%;
+  width: 100%;
+  min-width:1000px;
+}
+.preview-buttons-full-layout{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 20px;
+}
+.preview-button > vaadin-icon{
+  width: 22px;
+}
+.transparent-element{
+  opacity: 0;
+}
+#right-preview-arrow-icon-wrapper,
+#left-preview-arrow-icon-wrapper{
+  position: absolute;
+  height: 100%;
+  width: max(100px, 10%);
+  top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.change-preview-arrow-icon-button:hover{
+  box-shadow: none;
+  background: transparent !important;
+  cursor: pointer;
+}
+.change-preview-arrow-icon-button{
+  width: 70px;
+  height: 70px;
+  z-index: 6;
+}
+.change-preview-arrow-icon-button > vaadin-icon{
+  width: 60px;
+  height: 60px;
+}
+#right-preview-arrow-icon-wrapper{
+  right: 0px;
+}
+#left-preview-arrow-icon-wrapper{
+  left: 0px;
+}
+.preview-image,
+.preview-svg-image{
+  width: 100%;
+  margin: 0;
+  height: calc(100% - 56px);
+}
+.preview-image{
+  object-fit: scale-down;
+}
+#preview-svg-container{
+  display: flex;
+  align-items: unset;
+}
+.preview-svg-image{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#preview-video-element,
+#preview-audio-element{
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+.preview-not-supported-layout,
+#preview-embed-element{
+  height: calc(100% - 56px);
+  width: 100%;
+  min-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+.preview-not-supported-image{
+  height: 50%;
+  width: 100%;
+  object-fit: scale-down;
+}
+.preview-not-supported-span,
+.preview-too-big-span{
+  width: 100%;
+  text-align: center;
+  font-size: 40px;
+  font-family: typography-times-regular, serif;
+}
+.preview-not-supported-span{
+  word-spacing: 8px;
+}
+.preview-filename-layout{
+  height: 36px;
+  width: 80%;
+  display: flex;
+  align-items: center;
+}
+.preview-filename-image{
+  height: 36px;
+  width: 36px;
+}
+#page-input{
+  width: 60px;
+}
+#page-input > input{
+  text-align: right;
+  mask-image: none;
+}
+#pdf-viewer-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 56px);
+  align-items: center;
+}
+#pdf-controls{
+  padding: 10px;
+}
+#pdf-canvas-container{
+  flex: 1;
+  overflow-y: auto; /* Allows vertical scrolling */
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.preview-pdf-canvas{
+  padding: 10px;
+  margin: auto;
+}
+#html-preview-iframe{
+  width: 100%;
+  height: 100%;
+}
+
+/*mobile visualization above 1000px*/
+@media (max-width: 1000px) {
+  #preview-media-main-container{
+    min-width: unset;
+  }
+  .preview-button > vaadin-icon{
+    width: 20px;
+  }
+  .preview-buttons-full-layout,
+  .preview-actions-buttons-layout{
+    padding: 0;
+  }
+  .preview-buttons-full-layout{
+    max-width: 100%;
+  }
+  .preview-not-supported-span{
+    font-size: 25px;
+    word-spacing: unset;
+  }
+  .preview-filename-layout{
+    width: 50%;
+  }
+  .preview-not-supported-layout{
+    min-width: unset;
+  }
+}

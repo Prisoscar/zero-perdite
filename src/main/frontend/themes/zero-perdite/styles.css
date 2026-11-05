@@ -1,0 +1,41 @@
+@import url('./main-layout.css');
+@import url('./views/clienti-view.css');
+
+@import url('./views/login-view.css');
+/*@import url('@fontsource/inter/index.css');*/
+@font-face {
+    font-family: "fair-prosper";
+    src: url('/fonts/fair-prosper.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "typography-times-regular";
+    src: url('/fonts/typography-times-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, spreadsheet-view-export, grid-with-filters-view-export {
+      --lumo-primary-color: hsl(241, 65%, 43%);
+      --lumo-primary-color-50pct: hsla(241, 65%, 43%, 0.5);
+      --lumo-primary-color-10pct: hsla(241, 65%, 43%, 0.1);
+      --lumo-primary-text-color: hsl(241, 65%, 43%);
+
+    --zero-perdite-yellow-red-shade: linear-gradient(to right, #ff8a00 0%, #dd4c4f 100%);
+    --zero-perdite-violet-shade: linear-gradient(to right, #9733EE, #DA22FF);
+    --zero-perdite-violet-blue-shade: linear-gradient(to right, #7c1ad1, #101872);
+    --zero-perdite-violet-red-shade: linear-gradient(to right, #9700FF 0%, #c1104a 100%);
+    --zero-perdite-red-violet-shade: linear-gradient(to right, #FF0060, 20%, #8700FF);
+
+    }
+
+    [theme~="dark"] {
+
+    }
+
+    .flex-row-centered {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }

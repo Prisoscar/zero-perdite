@@ -1,0 +1,62 @@
+.default-page-title{
+    padding: var(--lumo-space-s);
+}
+
+.standard-dialog {
+    max-width: 450px;
+}
+
+.dialog-multi-span-text{
+    margin: -6px 0;
+}
+
+.dialog-truncated-title{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    width: 110%;
+    margin: 0 -0 20px -15px;
+}
+
+vaadin-dialog::part(header){
+  justify-content: center;
+}
+
+vaadin-dialog::part(title){
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.full-size-element{
+  width: 100%;
+  height: 100%;
+}
+
+.neutral-text{
+  color: var(--lumo-body-text-color) !important;
+}
+
+vaadin-dialog::part(overlay){
+  width: 100%;
+  max-width: 500px;
+  padding: 0;
+  margin: 0;
+}
+
+.main-text-color{
+    color: var(--lumo-body-text-color);
+}
+
+/* mobile view */
+@media (max-width: 900px) {
+
+    vaadin-dialog::part(title){
+      font-size: 18px;
+    }
+    .dialog-multi-span-text{
+        font-size: var(--cloud-io-mobile-size);
+    }
+}

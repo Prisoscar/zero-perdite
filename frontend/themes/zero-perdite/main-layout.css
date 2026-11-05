@@ -1,0 +1,215 @@
+vaadin-scroller[slot="drawer"] {
+  padding: var(--lumo-space-s);
+  /*border-top: 1px solid;*/
+}
+.main-layout-side-nav{
+  margin-top: var(--lumo-space-l);
+  /*padding-top: var(--lumo-space-m);*/
+  /*border-top: 1px solid ;*/
+}
+.main-scroll{
+  position: relative;
+}
+.main-scroll-img{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+  left: 0px;
+  z-index: -1;
+  opacity: 0.2;
+  transform: scaleX(-1);
+}
+vaadin-side-nav::part(children){
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main-layout-side-nav-item{
+  margin-top: 10px;
+  width: 90%;
+  font-size: var(--lumo-font-size-m);
+  border-radius: var(--lumo-border-radius-l);
+  /*box-shadow: inset 0 0 0 1px var(--lumo-contrast-20pct);*/
+}
+.main-layout-side-nav-item::part(link){
+  padding-left: 20px;
+}
+.main-layout-logo{
+  user-select: none;
+  font-size: var(--lumo-font-size-xxxl);
+  font-family: fair-prosper, sans-serif;
+  background: var(--cloud-io-red-violet-shade);
+  background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-top: 5px;
+}
+vaadin-side-nav-item vaadin-icon {
+  padding: 0;
+}
+.main-tab-lateral-header{
+  /*border-bottom: 1px solid var(--lumo-contrast-20pct);*/
+}
+[slot="drawer"]:is(header, footer) {
+  display: flex;
+  align-items: center;
+  gap: var(--lumo-space-s);
+  padding: var(--lumo-space-s) var(--lumo-space-m);
+  min-height: var(--lumo-size-xl);
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+.selected-language{
+  text-decoration: underline;
+}
+[slot="drawer"]:is(header, footer):is(:empty) {
+  display: none;
+}
+.upper-title-layout{
+  width: 100%;
+}
+#page-title-h2{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: rtl;
+  text-align: right;
+  width: fit-content;
+  margin-left: var(--lumo-space-s);
+  padding-right: 80px;
+}
+#page-title-wrapper{
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+  font-weight: bold;
+}
+vaadin-app-layout::part(navbar){
+  height: 58px;
+}
+.language-selector-container{
+  align-items: center;
+  padding: 0 0 0 15px;
+  margin-right: -5px;
+  border-left: 1px solid var(--lumo-contrast-20pct);
+  /*justify-content: right;
+  margin: -10px;*/
+  height: 100%;
+}
+.language-selector-component{
+  cursor: default;
+  width: 30px;
+  margin: -5px;
+  padding-top: 5px;
+  text-align: center;
+}
+.language-selector-component:hover{
+  box-shadow: inset 0 0 0 1px var(--lumo-contrast-20pct);
+  border-radius: var(--lumo-border-radius-m);
+}
+.upper-main-tab-container{
+  width: 100%;
+}
+.space-indicator-container{
+  padding-top: 40px;
+  /*border-top: 1px solid var(--lumo-contrast-20pct);*/
+}
+.space-indicator-element{
+  margin: -3px 0;
+}
+.username-span{
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#current-zip-job-viewer,
+#current-upload-viewer{
+  padding: 0;
+  width: 100%;
+}
+#current-zip-job-text-viewer,
+#current-upload-text-viewer{
+  padding: var(--lumo-space-m);
+  width: 100%;
+}
+.current-zip-job-status-layout,
+.current-upload-status-layout{
+  width: 80% !important;
+  padding: 0;
+}
+.current-viewed-status-paragraph{
+  margin: 0;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.current-viewed-status-update-paragraph{
+  /*padding-top: var(--lumo-space-s);*/
+  margin-top: -8px;
+  font-size: 13px;
+  color: #828282;
+}
+.viewer-button{
+  align-self: center;
+  min-width: 0;
+  width: 20%;
+}
+.viewer-button > vaadin-icon{
+  width: 24px !important;
+  height: 24px !important;
+}
+.current-job-loader {
+  width: 100%;
+  height: 1px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  margin-top: -20px;
+}
+.current-job-loader::after {
+  content: '';
+  width: 25%;
+  height: 1px;
+  background: var(--lumo-primary-color);
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  animation: hitZak 0.6s ease-in-out infinite alternate;
+}
+@keyframes hitZak {
+  0% {
+    left: 0;
+    transform: translateX(-1%);
+  }
+  100% {
+    left: 100%;
+    transform: translateX(-99%);
+  }
+}
+#clear-pending-zip-jobs-button{
+  font-size: 13px;
+  padding-left: var(--lumo-space-m);
+  margin-bottom: -25px;
+}
+#clear-pending-zip-jobs-button::part(label){
+  text-align: left;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+
+  .desktop-standard-main-layout::part(drawer){
+    font-size: var(--cloud-io-mobile-size);
+    width: min(80vw, 270px);
+  }
+  .language-selector-component{
+    font-size: initial;
+  }
+
+}

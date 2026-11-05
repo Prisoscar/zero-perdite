@@ -1,0 +1,416 @@
+.folder-view {
+  display: block;
+  height: 100%;
+  width: 100%;
+  min-height: 300px;
+  min-width: 900px;
+  position: relative;
+}
+.files-main-grid{
+  height: 100%;
+}
+.files-main-grid::part(row){
+  border-bottom: var(--_lumo-grid-border-width) solid var(--_lumo-grid-secondary-border-color);
+  border-top: 0;
+}
+.files-main-grid::part(header-cell){
+  margin: -1px 0;
+}
+.files-main-grid img {
+  flex-shrink: 0;
+  height: var(--lumo-size-m);
+  width: var(--lumo-size-m);
+}
+.clickable-title-paragraph{
+  white-space: nowrap;
+  cursor: pointer;
+  padding: var(--lumo-space-s);
+  border-radius: 5px;
+  width: fit-content;
+}
+.clickable-title-paragraph:hover{
+  background: #222122a1;
+}
+.clickable-title-paragraph-last-element{
+  margin-right: 65px;
+}
+.title-directory-separator-element{
+  width: fit-content;
+  white-space: nowrap;
+  padding: var(--lumo-space-s);
+  margin: 8px -20px;
+}
+.standard-files-grid-header-cell-content{
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+.standard-files-grid > vaadin-grid-cell-content > vaadin-grid-sorter{
+  padding: 10px 0 0 20px;
+  width: calc(100% - 20px);
+}
+.standard-files-grid > vaadin-grid-cell-content > vaadin-checkbox{
+  margin-top: 10%;
+  padding: 10px;
+}
+.standard-files-grid > vaadin-grid-cell-content{
+  padding: 0;
+  height: 100%;
+}
+.grid-cell-clickable-layout{
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  padding: 10px;
+}
+.suspended-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: ltr;
+  text-align: left;
+  width: 92%;
+}
+.action-button{
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+}
+.action-button:hover{
+  box-shadow: inset 0 0 0 1px var(--lumo-contrast-20pct);
+}
+.delete-button{
+  color: var(--cloud-io-error-color);
+}
+.buttons-cell{
+  justify-content: flex-end;
+  padding: 0 20px 6px 20px;
+}
+.buttons-cell > vaadin-button{
+  margin: 0 -5px;
+}
+.action-button > vaadin-icon{
+  width: 17px;
+}
+.download-anchor, #main-upload-files-input{
+  position:absolute;
+  color: transparent;
+  display: none;
+  pointer-events: none;
+}
+.full-width-modal-input{
+  width:400px;
+  max-width: 80vw;
+  align-self: center;
+}
+
+.move-file-dialog::part(overlay){
+  width: 100%;
+  max-width: 750px;
+  /*max-width: 800px;
+      max-height: 750px;*/
+  padding: 0;
+  margin: 0;
+}
+.move-file-dialog::part(overlay) .resizer-container {
+  width: 100%;
+  border: 1px solid deeppink;
+}
+.move-file-dialog::part(overlay)  << .resizer-container {
+  width: 100%;
+}
+.move-buttons-wrapper{
+  width: 100%;
+  justify-content: center;
+}
+.move-files-header{
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  border-bottom: 1px solid var(--lumo-contrast-20pct);
+  padding-bottom: 10px;
+}
+.move-files-img{
+    max-height: 50px;
+}
+.new-directory-button{
+  width: fit-content;
+}
+.move-file-row{
+  width: 650px;
+  align-items: center;
+}
+.move-files-directory-name{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 570px;
+}
+.full-width-modal-input::part(label){
+  font-size: 12px;
+}
+.move-row-button{
+  width: 100%;
+  height: fit-content;
+  background: transparent;
+  box-shadow: none;
+  display: grid;
+  justify-content: start;
+}
+.move-row-button:hover{
+  cursor: pointer;
+  box-shadow: inset 0 0 0 2px var(--lumo-primary-color);
+  /*border: 1px solid var(--lumo-primary-color);*/
+}
+.move-row-button[focused]{
+  box-shadow: inset 0 0 0 2px var(--lumo-primary-color);
+}
+.move-here-span{
+  font-size: var(--cloud-io-mobile-size);
+  color: var(--lumo-secondary-text-color);
+  margin: -20px 0 0 0;
+}
+.upload-loader{
+  width: 25px;
+  height: 25px;
+  border: 3px solid #FFF;
+  border-bottom-color: var(--lumo-primary-color);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.uploading-files-layout{
+  position: absolute;
+  z-index: 3;
+  bottom: 0px;
+  right: 50px;
+  background: var(--lumo-base-color);
+  width: 75% !important;
+  max-width: 430px;
+  border-radius: 10px 10px 0 0;
+  box-shadow: inset 0 0 0 1px var(--lumo-contrast-20pct);
+  padding: 0;
+}
+.uploads-header-container{
+  width: 99%;
+  justify-content: space-around;
+  padding: var(--lumo-space-m);
+  align-items: center;
+  background: #000 !important;
+  border-radius: 10px 10px 0 0;
+  margin-left: 2px;
+  margin-top: 2px;
+}
+.header-title-span{
+  margin-left: 50px;
+  width: 100%;
+}
+.upload-row-filename-span{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.close-upload-layout-button{
+  background: transparent;
+  box-shadow: none;
+}
+.filename-error-layout{
+  padding: 0;
+  width: 90% !important;
+}
+.upload-info-span{
+  font-size: 13px;
+  padding: 0;
+  margin-top: -12px;
+}
+.clickable-upload-row:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+.upload-error-span{
+  color: var(--cloud-io-error-color);
+}
+.upload-file-icon{
+  height: 35px;
+}
+.upload-status-icon{
+  align-self: center;
+  right: 0;
+  position: absolute;
+}
+.upload-description-layout{
+  align-items: center;
+  max-width: 88%;
+}
+.uploads-container{
+  padding: var(--lumo-space-m);
+  max-height: 400px;
+  overflow-y: auto;
+}
+.upload-row-layout{
+  width: 100%;
+  justify-content: space-between;
+  position: relative;
+}
+.upload-success-icon{
+  color: var(--lumo-success-text-color);
+}
+.upload-error-icon{
+  color: var(--lumo-error-text-color);
+}
+.hidden-element,
+.mobile-hidden-element{
+  height: 0 !important;
+  display: none !important;
+}
+
+/*mobile*/
+.files-main-mobile-grid{
+  width: calc(100% + 47px);
+  height: 100%;
+  left: -47px;
+  overflow: hidden;
+}
+.mobile-info-header-cell > vaadin-button,
+.files-main-mobile-grid{
+  font-size: var(--cloud-io-mobile-size);
+}
+.files-main-mobile-grid::part(row){
+  border-bottom: var(--_lumo-grid-border-width) solid var(--_lumo-grid-secondary-border-color);
+  border-top: 0;
+}
+.files-main-mobile-grid::part(header-cell){
+  margin: -1px 0;
+}
+.mobile-info-header-cell > vaadin-button{
+  width: min(100%, 200px);
+}
+.mobile-info-header-cell{
+  padding:0;
+}
+.mobile-actions-header-layout{
+  justify-content: end;
+}
+.mobile-icon-button::part(label){
+  padding: 4px 0 0 10px;
+}
+.mobile-action-button{
+  color: var(--lumo-body-text-color);
+}
+.mobile-dialog-button{
+  width: 100%;
+  height: 50px;
+  background: transparent;
+  display: grid;
+  justify-content: start;
+  font-size: 14px !important;
+  min-width: min(70vw, 350px);
+  padding: 0 0 0 20px;
+}
+.mobile-button:hover{
+  box-shadow: none;
+}
+.mobile-dialog-button::part(prefix){
+  transform: scale(1.4);
+  padding-right: 20px;
+}
+.mobile-button{
+  font-size: var(--cloud-io-mobile-size);
+}
+.mobile-column-header{
+  margin-left: 60px;
+  font-size: 12px;
+}
+.files-main-mobile-grid::part(selector-cell){
+  border: 1px solid violet;
+  display: none;
+}
+.mobile-grid-img{
+  height: 35px;
+  width: 35px;
+  align-self: center;
+}
+.mobile-size-span,
+.mobile-cell-last-update-span{
+  font-size: 10px;
+  color: gray;
+}
+.mobile-grid-filename-span{
+  margin-bottom: -10px;
+}
+.mobile-grid-actions-button-layout{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.mobile-actions-header-layout,
+.mobile-grid-actions-button-layout{
+  padding: 4px 10px 4px 0px !important;
+}
+.mobile-grid-cell-clickable-layout{
+  padding: 4px 0px 4px 22px;
+  height: 100%;
+}
+
+/* Mobile version under 1000px */
+@media (max-width: 1000px) {
+
+  .uploading-files-layout{
+    display: none;
+  }
+  .move-file-row{
+    width: 100%;
+  }
+  .move-files-directory-name{
+    max-width: calc(70vw - 90px);
+  }
+  .move-file-dialog::part(content){
+    padding: 0;
+  }
+  .folder-view{
+    min-width: unset;
+  }
+  .move-here-span{
+    font-size: 11px;
+  }
+  .move-files-directory-name{
+    margin-bottom: 10px;
+  }
+  .move-row-button:hover{
+    box-shadow: none;
+    border: none;
+  }
+  .move-files-img{
+    max-height: 35px;
+  }
+  .mobile-resizeable-button{
+    font-size: var(--lumo-font-size-s);
+    --lumo-button-size: var(--lumo-size-s);
+  }
+
+}
+
+@media (max-width: 350px) {
+  .move-file-dialog::part(overlay) .resize-container{
+    width: 100%;
+    border: 1px solid deeppink;
+  }
+  .move-file-row{
+    width: 100%;
+  }
+  .move-files-directory-name{
+    max-width: calc(60vw - 30px);
+  }
+}

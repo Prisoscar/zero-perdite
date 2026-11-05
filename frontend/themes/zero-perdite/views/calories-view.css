@@ -1,0 +1,457 @@
+#calories-main-div{
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.calories-tabs{
+  flex: none;
+  box-shadow: inset 0 -1px 0 0 var(--lumo-contrast-10pct);
+}
+.calories-content{
+  padding: var(--lumo-space-s) var(--lumo-space-m) var(--lumo-space-l);
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.calories-panel{
+  display: flex;
+  flex-direction: column;
+  gap: var(--lumo-space-m);
+  max-width: 760px;
+  width: 100%;
+}
+
+/* selettori di periodo */
+.calories-strip{
+  display: flex;
+  align-items: center;
+  gap: var(--lumo-space-xs);
+  flex-wrap: wrap;
+}
+.calories-day-picker{
+  max-width: 190px;
+}
+.calories-period-nav{
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 170px;
+  background: var(--lumo-contrast-5pct);
+  box-shadow: inset 0 0 0 1px var(--lumo-contrast-10pct);
+  border-radius: var(--lumo-border-radius-m);
+  padding: 2px;
+}
+.calories-period-label{
+  flex: 1;
+  text-align: center;
+  font-size: var(--lumo-font-size-s);
+  font-weight: 550;
+}
+.calories-period-arrow{
+  flex: none;
+  color: var(--lumo-secondary-text-color);
+}
+.calories-segment{
+  display: flex;
+  flex: none;
+  background: var(--lumo-contrast-5pct);
+  box-shadow: inset 0 0 0 1px var(--lumo-contrast-10pct);
+  border-radius: var(--lumo-border-radius-m);
+  padding: 2px;
+}
+.calories-segment-button{
+  background: none;
+  color: var(--lumo-secondary-text-color);
+  font-size: var(--lumo-font-size-xs);
+  font-weight: 550;
+  height: auto;
+  min-height: 0;
+  padding: 5px 10px;
+  margin: 0;
+  border-radius: var(--lumo-border-radius-s);
+}
+.calories-segment-button.calories-on{
+  color: var(--lumo-body-text-color);
+  background: var(--lumo-primary-color-10pct);
+  box-shadow: inset 0 0 0 1px var(--lumo-primary-color-50pct);
+}
+
+/* Fascia ingerite / bruciate / peso.
+   Tre colonne a proporzioni fisse che non si impilano a nessuna larghezza: questa pagina si usa
+   quasi solo da telefono e la fascia non deve mangiare altezza allo schermo. */
+.calories-summary{
+  display: grid;
+  grid-template-columns: 1.42fr 0.82fr 1.06fr;
+  background: var(--lumo-contrast-5pct);
+  box-shadow: inset 0 0 0 1px var(--lumo-primary-color-50pct);
+  border-radius: var(--lumo-border-radius-l);
+}
+.calories-cell{
+  padding: 9px 10px;
+  min-width: 0;
+}
+.calories-cell + .calories-cell{
+  border-left: 1px solid var(--lumo-contrast-10pct);
+}
+.calories-cell-head{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 5px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lumo-tertiary-text-color);
+  white-space: nowrap;
+}
+.calories-edit-target-button{
+  margin: 0 0 0 auto;
+  flex: none;
+  min-width: 0;
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  color: var(--lumo-tertiary-text-color);
+}
+.calories-edit-target-button:hover{
+  color: var(--lumo-primary-text-color);
+}
+.calories-edit-target-button svg{
+  width: 11px;
+  height: 11px;
+}
+.calories-cell-value{
+  display: block;
+  font-size: 19px;
+  font-weight: 660;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.calories-cell-value-of{
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--lumo-secondary-text-color);
+}
+.calories-cell-bar{
+  height: 4px;
+  border-radius: 2px;
+  background: var(--lumo-contrast-10pct);
+  overflow: hidden;
+  margin-top: 6px;
+}
+.calories-cell-bar-fill{
+  height: 100%;
+  border-radius: 2px;
+  background: var(--lumo-success-color);
+}
+.calories-cell-bar-fill.calories-over{
+  background: var(--cloud-io-error-color);
+}
+.calories-cell-sub{
+  display: block;
+  font-size: 10px;
+  color: var(--lumo-tertiary-text-color);
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.calories-warn{
+  color: var(--cloud-io-error-color);
+  font-weight: 600;
+}
+.calories-good{
+  color: var(--lumo-success-text-color);
+}
+
+/* tessere di sintesi dei report */
+.calories-tiles{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--lumo-space-xs);
+}
+.calories-tile{
+  background: var(--lumo-contrast-5pct);
+  box-shadow: inset 0 0 0 1px var(--lumo-primary-color-50pct);
+  border-radius: var(--lumo-border-radius-m);
+  padding: 9px 10px;
+  min-width: 0;
+}
+.calories-tile-label{
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--lumo-tertiary-text-color);
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+.calories-tile-value{
+  display: block;
+  font-size: 17px;
+  font-weight: 660;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* figure */
+.calories-figure{
+  background: var(--lumo-contrast-5pct);
+  box-shadow: inset 0 0 0 1px var(--lumo-primary-color-50pct);
+  border-radius: var(--lumo-border-radius-l);
+  padding: 12px 12px 6px;
+}
+.calories-figure-head{
+  display: flex;
+  align-items: baseline;
+  gap: var(--lumo-space-xs);
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.calories-figure-title{
+  font-size: var(--lumo-font-size-s);
+  font-weight: 650;
+}
+.calories-figure-hint{
+  font-size: var(--lumo-font-size-xs);
+  color: var(--lumo-tertiary-text-color);
+}
+.calories-plot-holder{
+  /* il viewBox e' tarato sulla larghezza di un telefono: senza un tetto, su desktop
+     scalerebbe troppo e testo e tratti diventerebbero sproporzionati */
+  max-width: 700px;
+}
+.calories-plot{
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.calories-empty{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 84px;
+  padding: var(--lumo-space-m) 0;
+}
+.calories-empty-text{
+  font-size: var(--lumo-font-size-s);
+  color: var(--lumo-tertiary-text-color);
+  text-align: center;
+}
+
+/* elementi dei grafici: la palette resta qui, il generatore SVG emette solo classi */
+.c-grid{
+  stroke: var(--lumo-contrast-10pct);
+  stroke-width: 1;
+}
+.c-axis{
+  fill: var(--lumo-tertiary-text-color);
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+}
+.c-target{
+  stroke: var(--lumo-tertiary-text-color);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.c-target-label{
+  fill: var(--lumo-secondary-text-color);
+  font-size: 9px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.c-area{
+  fill: url(#caloriesAreaGradient);
+}
+.c-area-from{
+  stop-color: var(--cloud-io-chart-accent);
+  stop-opacity: 0.34;
+}
+.c-area-to{
+  stop-color: var(--cloud-io-chart-accent);
+  stop-opacity: 0;
+}
+.c-line{
+  fill: none;
+  stroke: var(--cloud-io-chart-accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.c-dot{
+  fill: var(--cloud-io-chart-accent);
+  opacity: 0.6;
+}
+.c-dot-last{
+  fill: var(--cloud-io-chart-accent);
+  stroke: var(--lumo-base-color);
+  stroke-width: 2;
+}
+.c-value{
+  fill: var(--lumo-body-text-color);
+  font-size: 10.5px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.c-bar{
+  fill: var(--cloud-io-chart-accent);
+}
+.c-bar-over{
+  fill: var(--cloud-io-error-color);
+}
+.c-bar-burn{
+  fill: var(--lumo-success-color);
+}
+
+/* inserimento */
+.calories-add-row{
+  align-items: baseline;
+  padding: 0;
+  flex-wrap: wrap;
+  gap: var(--lumo-space-xs);
+  width: 100%;
+}
+.calories-description-field{
+  flex: 1 1 100%;
+}
+.calories-kcal-field,
+.calories-time-field{
+  flex: 0 0 92px;
+}
+.calories-add-button{
+  flex: 1;
+}
+.calories-dialog-fields{
+  display: flex;
+  flex-direction: column;
+  gap: var(--lumo-space-s);
+  min-width: 240px;
+}
+.calories-secondary-actions{
+  padding: var(--lumo-space-xs) 0 0;
+  gap: var(--lumo-space-xs);
+  flex-wrap: wrap;
+}
+.calories-ghost-button{
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--lumo-contrast-20pct);
+  color: var(--lumo-secondary-text-color);
+  font-size: var(--lumo-font-size-xs);
+  height: var(--lumo-size-s);
+  margin: 0;
+}
+.calories-ghost-button:hover{
+  color: var(--lumo-body-text-color);
+  box-shadow: inset 0 0 0 1px var(--lumo-primary-color-50pct);
+}
+
+/* elenco piatto, in ordine di orario */
+.calories-section{
+  display: flex;
+  flex-direction: column;
+}
+.calories-list-head{
+  display: flex;
+  align-items: center;
+  gap: var(--lumo-space-xs);
+  font-size: var(--lumo-font-size-s);
+  font-weight: 650;
+  padding-bottom: 2px;
+}
+.calories-list-summary{
+  margin-left: auto;
+  font-size: var(--lumo-font-size-xs);
+  font-weight: 500;
+  color: var(--lumo-secondary-text-color);
+  font-variant-numeric: tabular-nums;
+}
+.calories-item{
+  display: flex;
+  align-items: center;
+  gap: var(--lumo-space-xs);
+  padding: 7px 2px;
+  font-size: var(--lumo-font-size-s);
+  border-radius: var(--lumo-border-radius-s);
+}
+.calories-item + .calories-item{
+  border-top: 1px solid var(--lumo-contrast-5pct);
+}
+.calories-item:hover{
+  background: var(--lumo-contrast-5pct);
+}
+.calories-item-time{
+  flex: none;
+  width: 38px;
+  font-size: var(--lumo-font-size-xs);
+  color: var(--lumo-tertiary-text-color);
+  font-variant-numeric: tabular-nums;
+}
+.calories-item-description{
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.calories-item-kcal{
+  flex: none;
+  width: 54px;
+  text-align: right;
+  font-weight: 550;
+  font-variant-numeric: tabular-nums;
+}
+.calories-section-burned .calories-item-kcal{
+  color: var(--lumo-success-text-color);
+}
+.calories-item-delete{
+  flex: none;
+  margin: 0;
+  color: var(--lumo-tertiary-text-color);
+}
+.calories-item-delete:hover{
+  color: var(--cloud-io-error-color);
+}
+
+/* su schermo largo la fascia respira, ma resta comunque su una riga */
+@media (min-width: 700px){
+  .calories-cell{
+    padding: 14px 16px;
+  }
+  .calories-cell-head{
+    font-size: 10px;
+    margin-bottom: 8px;
+  }
+  .calories-cell-value{
+    font-size: 26px;
+  }
+  .calories-cell-value-of{
+    font-size: 15px;
+  }
+  .calories-cell-bar{
+    height: 6px;
+    margin-top: 10px;
+  }
+  .calories-cell-sub{
+    font-size: 12px;
+    margin-top: 7px;
+  }
+  .calories-tile-value{
+    font-size: 22px;
+  }
+  .calories-tile-label{
+    font-size: 10px;
+  }
+  .calories-description-field{
+    flex: 1 1 240px;
+  }
+  .calories-add-button{
+    flex: 0 0 auto;
+  }
+}
