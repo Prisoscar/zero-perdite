@@ -1,20 +1,13 @@
 package mkle.zeroperdite.views.clienti;
 
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.checkbox.CheckboxGroup;
-import com.vaadin.flow.component.combobox.MultiSelectComboBox;
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -26,13 +19,12 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
-import mkle.zeroperdite.data.SamplePerson;
-import mkle.zeroperdite.services.SamplePersonService;
+import mkle.zeroperdite.data.Client;
+import mkle.zeroperdite.services.ClientService;
 import org.springframework.data.jpa.domain.Specification;
 import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
@@ -43,17 +35,16 @@ import org.vaadin.lineawesome.LineAwesomeIconUrl;
 @Uses(Icon.class)
 public class ClientiView extends Div {
 
-    private Grid<SamplePerson> grid;
+    private Grid<Client> grid;
+    private final Filters filters;
+    private final ClientService clientService;
 
-    private Filters filters;
-    private final SamplePersonService samplePersonService;
-
-    public ClientiView(SamplePersonService SamplePersonService) {
-        this.samplePersonService = SamplePersonService;
+    public ClientiView(ClientService clientService) {
+        this.clientService = clientService;
         setSizeFull();
         addClassNames("clienti-view");
 
-        filters = new Filters(() -> refreshGrid());
+        filters = new Filters(this::refreshGrid);
         VerticalLayout layout = new VerticalLayout(createMobileFilters(), filters, createGrid());
         layout.setSizeFull();
         layout.setPadding(false);
@@ -62,7 +53,6 @@ public class ClientiView extends Div {
     }
 
     private HorizontalLayout createMobileFilters() {
-        // Mobile version
         HorizontalLayout mobileFilters = new HorizontalLayout();
         mobileFilters.setWidthFull();
         mobileFilters.addClassNames(LumoUtility.Padding.MEDIUM, LumoUtility.BoxSizing.BORDER,
@@ -70,7 +60,7 @@ public class ClientiView extends Div {
         mobileFilters.addClassName("mobile-filters");
 
         Icon mobileIcon = new Icon("lumo", "plus");
-        Span filtersHeading = new Span("Filters");
+        Span filtersHeading = new Span("Filtri");
         mobileFilters.add(mobileIcon, filtersHeading);
         mobileFilters.setFlexGrow(1, filtersHeading);
         mobileFilters.addClickListener(e -> {
@@ -85,160 +75,89 @@ public class ClientiView extends Div {
         return mobileFilters;
     }
 
-    public static class Filters extends Div implements Specification<SamplePerson> {
+    public static class Filters extends Div implements Specification<Client> {
 
-        private final TextField name = new TextField("Name");
-        private final TextField phone = new TextField("Phone");
-        private final DatePicker startDate = new DatePicker("Date of Birth");
-        private final DatePicker endDate = new DatePicker();
-        private final MultiSelectComboBox<String> occupations = new MultiSelectComboBox<>("Occupation");
-        private final CheckboxGroup<String> roles = new CheckboxGroup<>("Role");
+        private final TextField nome = new TextField("Nome");
+        private final TextField codiceFiscale = new TextField("Codice fiscale");
+        private final TextField citta = new TextField("Città");
+        private final TextField telefono = new TextField("Telefono");
+        private final TextField mail = new TextField("Mail");
 
         public Filters(Runnable onSearch) {
-
             setWidthFull();
             addClassName("filter-layout");
             addClassNames(LumoUtility.Padding.Horizontal.LARGE, LumoUtility.Padding.Vertical.MEDIUM,
                     LumoUtility.BoxSizing.BORDER);
-            name.setPlaceholder("First or last name");
+            nome.setPlaceholder("Cognome o Nome");
 
-            occupations.setItems("Insurance Clerk", "Mortarman", "Beer Coil Cleaner", "Scale Attendant");
-
-            roles.setItems("Worker", "Supervisor", "Manager", "External");
-            roles.addClassName("double-width");
-
-            // Action buttons
             Button resetBtn = new Button("Reset");
             resetBtn.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
             resetBtn.addClickListener(e -> {
-                name.clear();
-                phone.clear();
-                startDate.clear();
-                endDate.clear();
-                occupations.clear();
-                roles.clear();
+                nome.clear();
+                codiceFiscale.clear();
+                citta.clear();
+                telefono.clear();
+                mail.clear();
                 onSearch.run();
             });
-            Button searchBtn = new Button("Search");
+
+            Button searchBtn = new Button("Cerca");
             searchBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
             searchBtn.addClickListener(e -> onSearch.run());
 
             Div actions = new Div(resetBtn, searchBtn);
-            actions.addClassName(LumoUtility.Gap.SMALL);
-            actions.addClassName("actions");
+            actions.addClassNames(LumoUtility.Gap.SMALL, "actions");
 
-            add(name, phone, createDateRangeFilter(), occupations, roles, actions);
-        }
-
-        private Component createDateRangeFilter() {
-            startDate.setPlaceholder("From");
-
-            endDate.setPlaceholder("To");
-
-            // For screen readers
-            startDate.setAriaLabel("From date");
-            endDate.setAriaLabel("To date");
-
-            FlexLayout dateRangeComponent = new FlexLayout(startDate, new Text(" – "), endDate);
-            dateRangeComponent.setAlignItems(FlexComponent.Alignment.BASELINE);
-            dateRangeComponent.addClassName(LumoUtility.Gap.XSMALL);
-
-            return dateRangeComponent;
+            add(nome, codiceFiscale, citta, telefono, mail, actions);
         }
 
         @Override
-        public Predicate toPredicate(Root<SamplePerson> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+        public Predicate toPredicate(Root<Client> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (!name.isEmpty()) {
-                String lowerCaseFilter = name.getValue().toLowerCase();
-                Predicate firstNameMatch = criteriaBuilder.like(criteriaBuilder.lower(root.get("firstName")),
-                        lowerCaseFilter + "%");
-                Predicate lastNameMatch = criteriaBuilder.like(criteriaBuilder.lower(root.get("lastName")),
-                        lowerCaseFilter + "%");
-                predicates.add(criteriaBuilder.or(firstNameMatch, lastNameMatch));
+            if (!nome.isEmpty()) {
+                String value = nome.getValue().trim().toLowerCase() + "%";
+                predicates.add(cb.or(
+                        cb.like(cb.lower(root.get("cognome")), value),
+                        cb.like(cb.lower(root.get("nome")), value)));
             }
-            if (!phone.isEmpty()) {
-                String databaseColumn = "phone";
-                String ignore = "- ()";
+            addContains(predicates, cb, root, "codiceFiscale", codiceFiscale);
+            addContains(predicates, cb, root, "città", citta);
+            addContains(predicates, cb, root, "telefono", telefono);
+            addContains(predicates, cb, root, "mail", mail);
 
-                String lowerCaseFilter = ignoreCharacters(ignore, phone.getValue().toLowerCase());
-                Predicate phoneMatch = criteriaBuilder.like(
-                        ignoreCharacters(ignore, criteriaBuilder, criteriaBuilder.lower(root.get(databaseColumn))),
-                        "%" + lowerCaseFilter + "%");
-                predicates.add(phoneMatch);
-
-            }
-            if (startDate.getValue() != null) {
-                String databaseColumn = "dateOfBirth";
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(databaseColumn),
-                        criteriaBuilder.literal(startDate.getValue())));
-            }
-            if (endDate.getValue() != null) {
-                String databaseColumn = "dateOfBirth";
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(criteriaBuilder.literal(endDate.getValue()),
-                        root.get(databaseColumn)));
-            }
-            if (!occupations.isEmpty()) {
-                String databaseColumn = "occupation";
-                List<Predicate> occupationPredicates = new ArrayList<>();
-                for (String occupation : occupations.getValue()) {
-                    occupationPredicates
-                            .add(criteriaBuilder.equal(criteriaBuilder.literal(occupation), root.get(databaseColumn)));
-                }
-                predicates.add(criteriaBuilder.or(occupationPredicates.toArray(Predicate[]::new)));
-            }
-            if (!roles.isEmpty()) {
-                String databaseColumn = "role";
-                List<Predicate> rolePredicates = new ArrayList<>();
-                for (String role : roles.getValue()) {
-                    rolePredicates.add(criteriaBuilder.equal(criteriaBuilder.literal(role), root.get(databaseColumn)));
-                }
-                predicates.add(criteriaBuilder.or(rolePredicates.toArray(Predicate[]::new)));
-            }
-            return criteriaBuilder.and(predicates.toArray(Predicate[]::new));
+            return cb.and(predicates.toArray(Predicate[]::new));
         }
 
-        private String ignoreCharacters(String characters, String in) {
-            String result = in;
-            for (int i = 0; i < characters.length(); i++) {
-                result = result.replace("" + characters.charAt(i), "");
+        private void addContains(List<Predicate> predicates, CriteriaBuilder cb, Root<Client> root,
+                                 String attribute, TextField field) {
+            if (!field.isEmpty()) {
+                String value = field.getValue().trim().toLowerCase();
+                predicates.add(cb.like(cb.lower(root.get(attribute)), "%" + value + "%"));
             }
-            return result;
         }
-
-        private Expression<String> ignoreCharacters(String characters, CriteriaBuilder criteriaBuilder,
-                Expression<String> inExpression) {
-            Expression<String> expression = inExpression;
-            for (int i = 0; i < characters.length(); i++) {
-                expression = criteriaBuilder.function("replace", String.class, expression,
-                        criteriaBuilder.literal(characters.charAt(i)), criteriaBuilder.literal(""));
-            }
-            return expression;
-        }
-
     }
 
-    private Component createGrid() {
-        grid = new Grid<>(SamplePerson.class, false);
-        grid.addColumn("firstName").setAutoWidth(true);
-        grid.addColumn("lastName").setAutoWidth(true);
-        grid.addColumn("email").setAutoWidth(true);
-        grid.addColumn("phone").setAutoWidth(true);
-        grid.addColumn("dateOfBirth").setAutoWidth(true);
-        grid.addColumn("occupation").setAutoWidth(true);
-        grid.addColumn("role").setAutoWidth(true);
+    private Grid<Client> createGrid() {
+        grid = new Grid<>(Client.class, false);
+        grid.addColumn(Client::getCognome).setHeader("Cognome").setAutoWidth(true);
+        grid.addColumn(Client::getNome).setHeader("Nome").setAutoWidth(true);
+        grid.addColumn(Client::getCitta).setHeader("Città").setAutoWidth(true);
+        grid.addColumn(Client::getCodiceFiscale).setHeader("Codice fiscale").setAutoWidth(true);
+        grid.addColumn(Client::getIndirizzo).setHeader("Indirizzo").setAutoWidth(true);
+        grid.addColumn(Client::getTelefono).setHeader("Telefono").setAutoWidth(true);
+        grid.addColumn(Client::getMail).setHeader("Mail").setAutoWidth(true);
 
-        grid.setItems(query -> samplePersonService.list(VaadinSpringDataHelpers.toSpringPageRequest(query), filters)
+        grid.setItems(query -> clientService
+                .list(VaadinSpringDataHelpers.toSpringPageRequest(query), filters)
                 .stream());
-        grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
-        grid.addClassNames(LumoUtility.Border.TOP, LumoUtility.BorderColor.CONTRAST_10);
 
+        grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
+        grid.setSizeFull();
         return grid;
     }
 
     private void refreshGrid() {
         grid.getDataProvider().refreshAll();
     }
-
 }
